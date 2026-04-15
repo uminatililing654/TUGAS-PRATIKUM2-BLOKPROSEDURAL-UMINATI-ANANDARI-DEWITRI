@@ -54,8 +54,10 @@ Skenario Valid
 * Status: LUNAS
 * SKS: 18
 * IPK: 3.20
+
 ❌ Skenario Tidak Valid 1
 * Status: BELUM LUNAS
+
  ❌ Skenario Tidak Valid 2
 * SKS: 0
  📊 Hasil
