@@ -34,14 +34,17 @@ tugaspraktikum1-blokprosedural-namakelompok/
 
  🔹 Bagian A – Identitas Mahasiswa
 Menampilkan data mahasiswa menggunakan variabel dan konstanta.
+
 🔹 Bagian B – Validasi Akademik
 Melakukan pengecekan:
 * Status pembayaran
 * Jumlah SKS
 * IPK
   Serta menentukan kategori beban studi dan performa akademik.
+
 🔹 Bagian C – Kelayakan KRS
 Menggabungkan identitas dan validasi untuk menentukan apakah mahasiswa layak mengambil KRS.
+
 🔹 Bagian D – Perbandingan Mahasiswa
 Membandingkan dua mahasiswa berdasarkan:
 * IPK
