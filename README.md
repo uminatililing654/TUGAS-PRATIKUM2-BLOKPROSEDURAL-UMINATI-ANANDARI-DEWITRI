@@ -8,6 +8,7 @@
    NIM: IK2411011
 2. Anandari Dewitri
    NIM: IK2411032
+
 Tujuan Praktikum
 * Memahami struktur dasar blok prosedural pada MySQL
 * Mampu mendeklarasikan variabel dan konstanta
