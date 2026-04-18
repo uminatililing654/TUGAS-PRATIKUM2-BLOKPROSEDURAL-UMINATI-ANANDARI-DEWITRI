@@ -72,8 +72,8 @@ Program berhasil:
 
 | Nama             | Tugas                                              |
 | ---------------- | -------------------------------------------------- |
-| Uminati          | Analisis studi kasus, Bagian A & B, logika program |
-| Anandari Dewitri | Bagian C & D, output program, dokumentasi          |
+| Uminati          | Analisis studi kasus, (Bagian A & B), logika program |
+| Anandari Dewitri | Implementasi Kelayakan (Bagian C), Komparasi Data (Bagian D), output program, dokumentasi          |
 | Semua anggota    | Pengujian, laporan, dan upload GitHub              |
 
 ---
