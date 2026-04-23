@@ -1,5 +1,5 @@
 -- =========================================
--- DATABASE (OPSIONAL)
+-- DATABASE
 -- =========================================
 CREATE DATABASE IF NOT EXISTS db_kampus;
 USE db_kampus;
@@ -7,7 +7,7 @@ USE db_kampus;
 -- =========================================
 -- TABEL MAHASISWA
 -- =========================================
-CREATE TABLE mahasiswa (
+CREATE TABLE IF NOT EXISTS mahasiswa (
     nim VARCHAR(20) PRIMARY KEY,
     nama VARCHAR(50),
     semester INT,
@@ -21,7 +21,7 @@ INSERT INTO mahasiswa VALUES
 -- =========================================
 -- TABEL AKADEMIK
 -- =========================================
-CREATE TABLE akademik (
+CREATE TABLE IF NOT EXISTS akademik (
     nim VARCHAR(20),
     sks INT,
     ipk DECIMAL(3,2),
@@ -35,9 +35,9 @@ INSERT INTO akademik VALUES
 -- =========================================
 -- BAGIAN A
 -- =========================================
-DELIMITER //
+DELIMITER $$
 
-DROP PROCEDURE IF EXISTS bagianA_tabel //
+DROP PROCEDURE IF EXISTS bagianA_tabel $$
 
 CREATE PROCEDURE bagianA_tabel()
 BEGIN
@@ -49,16 +49,12 @@ BEGIN
             ' terdaftar di ', kampus, ' pada semester ', semester, '.'
         ) AS identitas_mahasiswa
     FROM mahasiswa;
-END //
-
-DELIMITER ;
+END $$
 
 -- =========================================
 -- BAGIAN B
 -- =========================================
-DELIMITER //
-
-DROP PROCEDURE IF EXISTS bagianB_tabel //
+DROP PROCEDURE IF EXISTS bagianB_tabel $$
 
 CREATE PROCEDURE bagianB_tabel()
 BEGIN
@@ -76,7 +72,8 @@ BEGIN
     INTO v_nama, v_semester, v_sks, v_ipk, v_status
     FROM mahasiswa m
     JOIN akademik a ON m.nim = a.nim
-    WHERE m.nim = 'IK2411011';
+    WHERE m.nim = 'IK2411011'
+    LIMIT 1;
 
     IF v_status = 'LUNAS' AND v_semester > 0 AND v_sks > 0 THEN
         SET status_data = 'Valid';
@@ -106,16 +103,12 @@ BEGIN
         CONCAT('Status data: ', status_data) AS status_data,
         CONCAT('Beban studi: ', beban) AS beban_studi,
         CONCAT('Performa akademik: ', performa) AS performa;
-END //
-
-DELIMITER ;
+END $$
 
 -- =========================================
 -- BAGIAN C
 -- =========================================
-DELIMITER //
-
-DROP PROCEDURE IF EXISTS bagianC_tabel //
+DROP PROCEDURE IF EXISTS bagianC_tabel $$
 
 CREATE PROCEDURE bagianC_tabel()
 BEGIN
@@ -180,16 +173,12 @@ BEGIN
             ' (', alasan, ').'
         ) AS hasil;
     END IF;
-END //
-
-DELIMITER ;
+END $$
 
 -- =========================================
 -- BAGIAN D
 -- =========================================
-DELIMITER //
-
-DROP PROCEDURE IF EXISTS bagianD_tabel //
+DROP PROCEDURE IF EXISTS bagianD_tabel $$
 
 CREATE PROCEDURE bagianD_tabel()
 BEGIN
@@ -223,9 +212,6 @@ BEGIN
     WHERE m.nim = 'IK2411032'
     LIMIT 1;
 
-    SELECT nama1, nim1, semester1, sks1, ipk1, status1;
-    SELECT nama2, nim2, semester2, sks2, ipk2, status2;
-
     IF ipk1 > ipk2 THEN
         SET hasil = CONCAT(nama1, ' lebih baik dari ', nama2);
     ELSEIF ipk2 > ipk1 THEN
@@ -241,7 +227,7 @@ BEGIN
     END IF;
 
     SELECT hasil AS kesimpulan;
-END //
+END $$
 
 DELIMITER ;
 
@@ -252,25 +238,3 @@ CALL bagianA_tabel();
 CALL bagianB_tabel();
 CALL bagianC_tabel();
 CALL bagianD_tabel();
-
--- =========================================
--- SKENARIO UJI
--- =========================================
-
--- Valid
-UPDATE akademik 
-SET sks = 18, ipk = 3.40, status_pembayaran = 'LUNAS'
-WHERE nim = 'IK2411011';
-CALL bagianC_tabel();
-
--- Tidak valid (belum lunas)
-UPDATE akademik 
-SET status_pembayaran = 'BELUM'
-WHERE nim = 'IK2411011';
-CALL bagianC_tabel();
-
--- Tidak valid (SKS 0)
-UPDATE akademik 
-SET sks = 0, status_pembayaran = 'LUNAS'
-WHERE nim = 'IK2411011';
-CALL bagianC_tabel();
