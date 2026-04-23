@@ -64,6 +64,7 @@ Kemudian menentukan:
   
 🔹 Bagian C – Kelayakan KRS
     Menggabungkan identitas dan hasil validasi untuk menentukan apakah mahasiswa layak mengambil KRS beserta alasan.
+    
  🔹 Bagian D – Perbandingan Mahasiswa
      Membandingkan dua mahasiswa berdasarkan:
       * IPK
